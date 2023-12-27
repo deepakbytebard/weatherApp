@@ -25,8 +25,10 @@ const WeatherContainer = () => {
     })
 
     useEffect(() => {
+        // get data stored in local storage and parse it
         let weatherInfo = JSON.parse(localStorage.getItem('weatherInfo'))
 
+        // if weatherinfo is in localstorage, then fetch data of last city checked 
         if (weatherInfo?.city) {
             setCity(weatherInfo.city)
             setUnit(weatherInfo.unit)
@@ -50,6 +52,7 @@ const WeatherContainer = () => {
             city: selectedCity,
             unit: tempUnit
         }
+        // update local storage with the new city searched by user
         localStorage.setItem('weatherInfo', JSON.stringify(weatherInfo))
         setWeather(data);
 
@@ -90,7 +93,7 @@ const WeatherContainer = () => {
 
     // onchange of temperature measuring unit
     const handleTempUnit = () => {
-        fetchWeatherData(unit === "metric" ? "imperial" : "metric")
+        fetchWeatherData(city, unit === "metric" ? "imperial" : "metric")
         setUnit(prev => {
             return prev === "metric" ? "imperial" : "metric"
         })
