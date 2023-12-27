@@ -1,4 +1,4 @@
-import WeatherContainer from "../Container";
+import WeatherContainer from "@container/index.jsx";
 import styles from "./style.module.css"
 const App = () => {
     return (

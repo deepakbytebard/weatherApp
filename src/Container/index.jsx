@@ -1,13 +1,18 @@
-import hotWeather from "../assets/WeatherAssets/hotWeather.jpg"
-import coldWeather from "../assets/WeatherAssets/coldWeather.jpg"
-import WeatherInputForm from "../Presentational/WeatherForm";
-import WeatherDetails from "../Presentational/WeatherBriefDetail";
-import WeatherDescription from "../Presentational/WeatherDescription";
-import FallBackUI from "../Presentational/FallBackUI";
-import { getFormattedWeatherData } from "./weatherServices";
+import { useEffect, useState } from "react";
+// Asset images
+import hotWeather from "@weatherAssets/hotWeather.jpg"
+import coldWeather from "@weatherAssets/coldWeather.jpg"
+
+// presentation component
+import WeatherInputForm from "@presentational/WeatherForm";
+import WeatherDetails from "@presentational/WeatherBriefDetail";
+import WeatherDescription from "@presentational/WeatherDescription";
+import FallBackUI from "@presentational/FallBackUI";
+
+// services to fetch weather data via API
+import { getFormattedWeatherData } from "@container/weatherServices";
 
 import styles from "./style.module.css";
-import { useEffect, useState } from "react";
 
 const WeatherContainer = () => {
     const [city, setCity] = useState(undefined);
