@@ -6,14 +6,19 @@ const WeatherDetails = ({
     iconURL,
     temp,
     country,
-    unit
+    unit,
 }) =>{
     const tempUnit = unit === "metric" ? "°C" : "°F";
     return(
         <div className={styles.weatherDesc}>
                 <span>
                     <h3>{`${name}, ${country}`}</h3>
-                    <img src={iconURL} alt="weatherIcon" />
+                    <img 
+                    src={iconURL}
+                    alt="weatherIcon"
+                    style={{color:"#CFE2F3"}}
+                    className={styles.icon}
+                    />
                     <h3>{description}</h3>
                 </span>
                 <span>

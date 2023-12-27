@@ -1,41 +1,70 @@
 import hotWeather from "../assets/WeatherAssets/hotWeather.jpg"
-import coldWeather from "../assets/WeatherAssets/coldWeather.jpeg"
+import coldWeather from "../assets/WeatherAssets/coldWeather.jpg"
 import WeatherInputForm from "../Presentational/WeatherForm";
 import WeatherDetails from "../Presentational/WeatherBriefDetail";
 import WeatherDescription from "../Presentational/WeatherDescription";
+import FallBackUI from "../Presentational/FallBackUI";
 import { getFormattedWeatherData } from "./weatherServices";
 
 import styles from "./style.module.css";
 import { useEffect, useState } from "react";
 
-const isValidInput = (input) => {
-    const regex = /^[a-zA-Z\s]+$/;
-    return regex.test(input);
-};
 const WeatherContainer = () => {
-    const [city, setCity] = useState("Ranchi");
+    const [city, setCity] = useState(undefined);
+    const [loading, setLoading] = useState(false)
     const [weather, setWeather] = useState(null);
-    const [unit, setUnit] = useState("metric");
-    const [bg, setBg] = useState(hotWeather);
+    const [unit, setUnit] = useState("metric"); //unit to measure temperature
+    const [bg, setBg] = useState(hotWeather); //background image on basis of temperature
+    const [apiError, setApiError] = useState({
+        isError: false,
+        message: ""
+    })
     const [error, setError] = useState({
         isValid: true,
         message: ""
     })
 
     useEffect(() => {
-        fetchWeatherData();
+        let weatherInfo = JSON.parse(localStorage.getItem('weatherInfo'))
+
+        if (weatherInfo?.city) {
+            setCity(weatherInfo.city)
+            setUnit(weatherInfo.unit)
+            fetchWeatherData(weatherInfo.city, weatherInfo.unit);
+        }
     }, [])
 
-    const fetchWeatherData = async () => {
-        const data = await getFormattedWeatherData(city, unit);
+    // to fetch weather data 
+    const fetchWeatherData = async (selectedCity=city, tempUnit = unit) => {
+        setLoading(true)
+        const data = await getFormattedWeatherData(selectedCity, tempUnit);
+        if (data.error) {
+            setApiError({
+                isError: true,
+                message: data.message
+            })
+            setLoading(false)
+            return;
+        }
+        let weatherInfo = {
+            city:selectedCity,
+            unit:tempUnit
+        }
+        localStorage.setItem('weatherInfo', JSON.stringify(weatherInfo))
         setWeather(data);
 
         // dynamic bg
-        const thresold = unit === "metric" ? 20 : 68;
+        const thresold = tempUnit === "metric" ? 20 : 68;
         if (data.temp <= thresold) {
             setBg(coldWeather);
         }
         else { setBg(hotWeather) };
+        // setScreen("data")
+        setApiError({
+            isError: false,
+            message: ""
+        })
+        setLoading(false)
     }
 
     // on change of city in input field
@@ -61,6 +90,7 @@ const WeatherContainer = () => {
 
     // onchange of temperature measuring unit
     const handleTempUnit = () => {
+        fetchWeatherData(unit === "metric" ? "imperial" : "metric")
         setUnit(prev => {
             return prev === "metric" ? "imperial" : "metric"
         })
@@ -78,6 +108,10 @@ const WeatherContainer = () => {
             })
         }
     }
+
+
+    let enterCityName = ((city === undefined || weather === null) && !apiError.isError) ? true : false
+
     return (
         <div className={styles.weatherContainer} style={{ backgroundImage: `url(${bg})` }}>
             <span className={styles.weatherInputForm}>
@@ -88,23 +122,39 @@ const WeatherContainer = () => {
                     onChangeUnit={handleTempUnit}
                     onCityInputChange={handleCityInputChange}
                     error={error}
+                    loading={loading}
                 />
             </span>
-            <span className={styles.weatherBriefDesc}>
-                <WeatherDetails
-                {...weather}
-                unit={unit}
+
+
+            <>{( enterCityName || loading || apiError.isError ) 
+            ?
+                <FallBackUI
+                    city={city}
+                    addCityUi = {enterCityName}
+                    loadingUi={loading}
+                    errorMessage={apiError.message}
                 />
-            </span>
-            <span className={styles.weatherDesc}>
-                <WeatherDescription
-                    {...weather}
-                    unit={unit}
-                />
-            </span>
+                        :
+                        <>
+                            <span className={styles.weatherBriefDesc}>
+                                <WeatherDetails
+                                    {...weather}
+                                    unit={unit}
+                                />
+                            </span>
+                            <span className={styles.weatherDesc}>
+                                <WeatherDescription
+                                    {...weather}
+                                    unit={unit}
+                                />
+                            </span>
+                        </>
+            }</>
 
         </div>
     )
 }
+// }
 
 export default WeatherContainer;

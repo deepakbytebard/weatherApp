@@ -3,10 +3,13 @@ import styles from "./style.module.css";
 const WeatherInputForm = ({
     city,
     unit,
+    loading,
     onSubmit,
     onChangeUnit,
     onCityInputChange
 }) => {
+
+    let disableBtn = (city === undefined || city === "" || loading) ? true : false
     return (
         <form onSubmit={onSubmit} className={styles.weatherInputForm}>
             <label
@@ -14,24 +17,28 @@ const WeatherInputForm = ({
                 htmlFor={"city"}
             >City Name</label>
             <input
+                key={"city"}
                 type="text"
                 name="city"
                 id="city"
-                value={city}
+                value={city || ""}
+                maxLength={50}
                 onChange={onCityInputChange}
                 placeholder="Enter City Name"
                 className={styles.input}
             />
             <button
                 type="submit"
-                className={styles.btn}
+                disabled={disableBtn}
+                className={`${styles.submitBtn} ${styles.btn} ${disableBtn && styles.disabledBtn}`}
             >Check Weather</button>
-            <label 
+            <label
                 className={styles.label}
             > in </label>
             <button
                 type="button"
-                className={styles.unitBtn}
+                disabled={disableBtn}
+                className={`${styles.unitBtn} ${styles.btn} ${disableBtn && styles.disabledBtn}`}
                 onClick={onChangeUnit}
             >
                 {unit === "metric" ? "°C" : "°F"}

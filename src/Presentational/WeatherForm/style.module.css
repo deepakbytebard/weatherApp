@@ -28,15 +28,25 @@
     border: none;
     border-radius: 5px;
     background-color: #d2dbe1;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.submitBtn{
     font-weight: 500;
 }
 
 .unitBtn{
-    height: 3rem;
-    padding: 10px;
-    font-size: 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #d2dbe1;
     font-weight: 600;
+}
+
+.btn:hover {
+    background-color: #b3cbec;
+    -webkit-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;
+}
+
+.disabledBtn{
+    cursor: not-allowed;
 }

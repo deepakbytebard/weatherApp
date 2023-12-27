@@ -1,0 +1,39 @@
+.sadEmojiIcon{
+    font-size: 100px;
+}
+  
+
+@keyframes loading {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+  
+.loadingSpinner {
+    height: 5px;
+    background-color: #0e3a58;
+    animation: loading 2s linear infinite;
+}
+
+@keyframes shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+      transform: translateX(-10px);
+    }
+    20%, 40%, 60%, 80% {
+      transform: translateX(10px);
+    }
+  }
+  
+  .errorMmessage {
+    color: #e74c3c; /* Red color for error */
+    font-size: 30px;
+    font-weight: bold;
+    animation: shake 0.5s ease-in-out;
+    text-transform: capitalize;
+  }
