@@ -1,4 +1,4 @@
-.weatherInputForm{
+.weatherInputForm {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,13 +7,13 @@
     column-gap: 20px;
 }
 
-.label{
+.label {
     font-size: 20px;
     font-weight: 500;
     color: white;
 }
 
-.input{
+.input {
     height: 3rem;
     padding: 10px;
     border-radius: 5px;
@@ -21,7 +21,7 @@
     width: 40%;
 }
 
-.btn{
+.btn {
     height: 3rem;
     padding: 10px;
     font-size: 15px;
@@ -32,11 +32,17 @@
     transition: all 0.3s ease-in-out;
 }
 
-.submitBtn{
+.btnSection {
+    column-gap: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.submitBtn {
     font-weight: 500;
 }
 
-.unitBtn{
+.unitBtn {
     font-weight: 600;
 }
 
@@ -47,6 +53,30 @@
     transition: background-color 1000ms linear;
 }
 
-.disabledBtn{
+.disabledBtn {
     cursor: not-allowed;
+}
+
+@media (max-width: 850px) {
+    .weatherInputForm {
+        flex-flow: column;
+        row-gap: 20px;
+        align-items: flex-start;
+    }
+
+    .input {
+        height: 3rem;
+        padding: 10px;
+        border-radius: 5px;
+        border: 0;
+        width: 100%;
+    }
+
+    .btnSection {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        column-gap: 20px;
+        align-items: center;
+    }
 }

@@ -35,7 +35,7 @@ const WeatherContainer = () => {
     }, [])
 
     // to fetch weather data 
-    const fetchWeatherData = async (selectedCity=city, tempUnit = unit) => {
+    const fetchWeatherData = async (selectedCity = city, tempUnit = unit) => {
         setLoading(true)
         const data = await getFormattedWeatherData(selectedCity, tempUnit);
         if (data.error) {
@@ -47,8 +47,8 @@ const WeatherContainer = () => {
             return;
         }
         let weatherInfo = {
-            city:selectedCity,
-            unit:tempUnit
+            city: selectedCity,
+            unit: tempUnit
         }
         localStorage.setItem('weatherInfo', JSON.stringify(weatherInfo))
         setWeather(data);
@@ -127,29 +127,29 @@ const WeatherContainer = () => {
             </span>
 
 
-            <>{( enterCityName || loading || apiError.isError ) 
-            ?
+            <>{(enterCityName || loading || apiError.isError)
+                ?
                 <FallBackUI
                     city={city}
-                    addCityUi = {enterCityName}
+                    addCityUi={enterCityName}
                     loadingUi={loading}
                     errorMessage={apiError.message}
                 />
-                        :
-                        <>
-                            <span className={styles.weatherBriefDesc}>
-                                <WeatherDetails
-                                    {...weather}
-                                    unit={unit}
-                                />
-                            </span>
-                            <span className={styles.weatherDesc}>
-                                <WeatherDescription
-                                    {...weather}
-                                    unit={unit}
-                                />
-                            </span>
-                        </>
+                :
+                <>
+                    <span className={styles.weatherBriefDesc}>
+                        <WeatherDetails
+                            {...weather}
+                            unit={unit}
+                        />
+                    </span>
+                    <span className={styles.weatherDesc}>
+                        <WeatherDescription
+                            {...weather}
+                            unit={unit}
+                        />
+                    </span>
+                </>
             }</>
 
         </div>

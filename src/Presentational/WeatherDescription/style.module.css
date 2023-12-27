@@ -1,4 +1,4 @@
-    .descCardSection{
+    .descCardSection {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 2.5rem;
@@ -24,8 +24,8 @@
         gap: 5px;
         margin-bottom: 12px;
     }
-  
-    .cardIcon > small {
+
+    .cardIcon>small {
         text-transform: capitalize;
     }
 
@@ -34,4 +34,3 @@
             grid-template-columns: 1fr 1fr;
         }
     }
-  

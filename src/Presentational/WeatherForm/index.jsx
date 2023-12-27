@@ -27,22 +27,24 @@ const WeatherInputForm = ({
                 placeholder="Enter City Name"
                 className={styles.input}
             />
-            <button
-                type="submit"
-                disabled={disableBtn}
-                className={`${styles.submitBtn} ${styles.btn} ${disableBtn && styles.disabledBtn}`}
-            >Check Weather</button>
-            <label
-                className={styles.label}
-            > in </label>
-            <button
-                type="button"
-                disabled={disableBtn}
-                className={`${styles.unitBtn} ${styles.btn} ${disableBtn && styles.disabledBtn}`}
-                onClick={onChangeUnit}
-            >
-                {unit === "metric" ? "°C" : "°F"}
-            </button>
+            <span className={styles.btnSection}>
+                <button
+                    type="submit"
+                    disabled={disableBtn}
+                    className={`${styles.submitBtn} ${styles.btn} ${disableBtn && styles.disabledBtn}`}
+                >Check Weather</button>
+                <label
+                    className={styles.label}
+                > in </label>
+                <button
+                    type="button"
+                    disabled={disableBtn}
+                    className={`${styles.unitBtn} ${styles.btn} ${disableBtn && styles.disabledBtn}`}
+                    onClick={onChangeUnit}
+                >
+                    {unit === "metric" ? "°C" : "°F"}
+                </button>
+            </span>
         </form>
     )
 }

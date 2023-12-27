@@ -7,26 +7,26 @@ const WeatherDetails = ({
     temp,
     country,
     unit,
-}) =>{
+}) => {
     const tempUnit = unit === "metric" ? "°C" : "°F";
-    return(
+    return (
         <div className={styles.weatherDesc}>
-                <span>
-                    <h3>{`${name}, ${country}`}</h3>
-                    <img 
+            <span>
+                <h2>{`${name}, ${country}`}</h2>
+                <p>{description}</p>
+                <img
                     src={iconURL}
                     alt="weatherIcon"
-                    style={{color:"#CFE2F3"}}
+                    style={{ color: "#CFE2F3" }}
                     className={styles.icon}
-                    />
-                    <h3>{description}</h3>
-                </span>
-                <span>
-                    <h1>
-                        {`${temp} ${tempUnit}`}
-                    </h1>
-                </span>
-            </div>
+                />
+            </span>
+            <span>
+                <h1>
+                    {`${temp} ${tempUnit}`}
+                </h1>
+            </span>
+        </div>
     )
 }
 

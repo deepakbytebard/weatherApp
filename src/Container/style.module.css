@@ -1,4 +1,4 @@
-.weatherContainer{
+.weatherContainer {
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
@@ -8,7 +8,7 @@
     height: 100vh;
 }
 
-.weatherInputForm{
+.weatherInputForm {
     height: 100px;
     display: flex;
     background-color: rgba(30, 20, 6, 0.7);
@@ -17,8 +17,21 @@
     padding: 10px;
     width: 70%;
 }
+
 .weatherBriefDesc,
-.weatherDesc{
+.weatherDesc {
     height: 200px;
     width: 70%;
+}
+
+@media (max-width:850px) {
+
+    .weatherContainer {
+        overflow: scroll;
+    }
+
+    .weatherInputForm {
+        height: 250px;
+        padding: 20px 10px;
+    }
 }
