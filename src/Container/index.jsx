@@ -1,6 +1,7 @@
 import hotWeather from "../assets/WeatherAssets/hotWeather.jpg"
 import coldWeather from "../assets/WeatherAssets/coldWeather.jpeg"
 import WeatherInputForm from "../Presentational/WeatherForm";
+import WeatherDetails from "../Presentational/WeatherBriefDetail";
 import WeatherDescription from "../Presentational/WeatherDescription";
 import { getFormattedWeatherData } from "./weatherServices";
 
@@ -10,7 +11,7 @@ import { useEffect, useState } from "react";
 const isValidInput = (input) => {
     const regex = /^[a-zA-Z\s]+$/;
     return regex.test(input);
-  };
+};
 const WeatherContainer = () => {
     const [city, setCity] = useState("Ranchi");
     const [weather, setWeather] = useState(null);
@@ -25,23 +26,23 @@ const WeatherContainer = () => {
         fetchWeatherData();
     }, [])
 
-    const fetchWeatherData = async() =>{
+    const fetchWeatherData = async () => {
         const data = await getFormattedWeatherData(city, unit);
         setWeather(data);
 
         // dynamic bg
         const thresold = unit === "metric" ? 20 : 68;
-        if (data.temp <= thresold){
+        if (data.temp <= thresold) {
             setBg(coldWeather);
         }
-        else {setBg(hotBg)};
+        else { setBg(hotWeather) };
     }
 
     // on change of city in input field
     const handleCityInputChange = (e) => {
         const { value } = e.target;
         const sanitizedValue = value.replace(/[^a-zA-Z\s]/g, '')
-        if(sanitizedValue === value){
+        if (sanitizedValue === value) {
             setCity(value);
             if (!error.isValid) {
                 setError({
@@ -49,7 +50,7 @@ const WeatherContainer = () => {
                     message: ""
                 })
             }
-        }else {
+        } else {
             setError({
                 isValid: false,
                 message: "Special characters are not allowed."
@@ -59,9 +60,9 @@ const WeatherContainer = () => {
     }
 
     // onchange of temperature measuring unit
-    const handleTempUnit = () =>{
-        setUnit(prev=>{
-            return prev==="metric" ? "imperial" : "metric"
+    const handleTempUnit = () => {
+        setUnit(prev => {
+            return prev === "metric" ? "imperial" : "metric"
         })
     }
 
@@ -89,7 +90,18 @@ const WeatherContainer = () => {
                     error={error}
                 />
             </span>
-                {/* <WeatherDescription/> */}
+            <span className={styles.weatherBriefDesc}>
+                <WeatherDetails
+                {...weather}
+                unit={unit}
+                />
+            </span>
+            <span className={styles.weatherDesc}>
+                <WeatherDescription
+                    {...weather}
+                    unit={unit}
+                />
+            </span>
 
         </div>
     )
