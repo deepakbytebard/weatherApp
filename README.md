@@ -32,8 +32,8 @@ Get your API key from OpenWeatherMap:
 
 Visit OpenWeatherMap and sign up for a free account.
 Once registered, obtain your API key.
-Create a .env file in the project src/container/weatherServices.js file:
-  REACT_APP_API_KEY=your_api_key_here
+Create a .env file in the project file:
+  VITE_API_KEY=your_api_key_here
 
 Start the application on local: 
 npm run dev

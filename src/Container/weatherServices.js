@@ -1,5 +1,5 @@
-const API_KEY = "bc098303370b2b7f70061f00dfb68432";
-
+// get api key from .env file
+const API_KEY = import.meta.env.VITE_API_KEY;
 // getting icon respective to city
 const makeIconURL = (iconId) =>
     `http://openweathermap.org/img/w/${iconId}.png`
